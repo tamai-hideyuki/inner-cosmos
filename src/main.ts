@@ -17,3 +17,7 @@ renderer.setPixelRatio(window.devicePixelRatio)
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.appendChild(renderer.domElement)
+
+renderer.setAnimationLoop(() => {
+  renderer.render(StaticRange, camera)
+})
