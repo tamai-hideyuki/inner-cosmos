@@ -11,7 +11,8 @@ const camera = new THREE.PerspectiveCamera(
 )
 camera.position.z = 3
 
-const renderer = new THREE.WebGLRenderer({ antialis: true })
+const renderer = new THREE.WebGLRenderer({ antialias: true })
+
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(window.devicePixelRatio)
 
@@ -19,5 +20,5 @@ const app = document.querySelector<HTMLDivElement>('#app')!
 app.appendChild(renderer.domElement)
 
 renderer.setAnimationLoop(() => {
-  renderer.render(StaticRange, camera)
+  renderer.render(scene, camera)
 })
