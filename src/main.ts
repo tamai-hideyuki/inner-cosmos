@@ -22,3 +22,12 @@ app.appendChild(renderer.domElement)
 renderer.setAnimationLoop(() => {
   renderer.render(scene, camera)
 })
+
+const geometry = new THREE.SphereGeometry(1, 64, 64)
+const material = new THREE.MeshStandardMaterial({
+  color: 0x88aaff,
+  roughness: 0.3,
+  metalness: 0.1,
+})
+const sphere = new THREE.Mesh(geometry, material)
+scene.add(sphere)
