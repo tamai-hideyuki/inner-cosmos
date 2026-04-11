@@ -1,6 +1,9 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 const scene = new THREE.Scene();
 
@@ -22,6 +25,22 @@ app.appendChild(renderer.domElement)
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+const composer = new EffectComposer(renderer);
+composer.setPixelRatio(window.devicePixelRatio);
+composer.setSize(window.innerWidth, window.innerHeight);
+
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  1.2,
+  0.8,
+  0.0,
+);
+composer.addPass(bloomPass);
+
+
 const clock = new THREE.Clock()
 renderer.setAnimationLoop(() => {
     const t = clock.getElapsedTime();
@@ -30,7 +49,7 @@ renderer.setAnimationLoop(() => {
 
     material.emissiveIntensity = 0.3 + Math.sin(t * 0.5) * 0.3;
     controls.update()
-    renderer.render(scene, camera)
+    composer.render()
 })
 
 const geometry = new THREE.SphereGeometry(1, 64, 64)
