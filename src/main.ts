@@ -19,8 +19,13 @@ renderer.setPixelRatio(window.devicePixelRatio)
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.appendChild(renderer.domElement)
 
+const clock = new THREE.Clock()
 renderer.setAnimationLoop(() => {
-  renderer.render(scene, camera)
+    const t = clock.getElapsedTime();
+    const scale = 1 + Math.sin(t * 1.0) * 0.15
+    sphere.scale.setScalar(scale)
+
+    renderer.render(scene, camera)
 })
 
 const geometry = new THREE.SphereGeometry(1, 64, 64)
