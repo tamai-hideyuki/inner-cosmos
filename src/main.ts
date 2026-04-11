@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
 
@@ -18,6 +19,8 @@ renderer.setPixelRatio(window.devicePixelRatio)
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.appendChild(renderer.domElement)
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
 
 const clock = new THREE.Clock()
 renderer.setAnimationLoop(() => {
@@ -26,7 +29,7 @@ renderer.setAnimationLoop(() => {
     sphere.scale.setScalar(scale)
 
     material.emissiveIntensity = 0.3 + Math.sin(t * 0.5) * 0.3;
-
+    controls.update()
     renderer.render(scene, camera)
 })
 
