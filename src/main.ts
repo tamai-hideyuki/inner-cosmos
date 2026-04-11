@@ -25,12 +25,16 @@ renderer.setAnimationLoop(() => {
     const scale = 1 + Math.pow(Math.sin(t * 0.5), 2) * 0.2
     sphere.scale.setScalar(scale)
 
+    material.emissiveIntensity = 0.3 + Math.sin(t * 0.5) * 0.3;
+
     renderer.render(scene, camera)
 })
 
 const geometry = new THREE.SphereGeometry(1, 64, 64)
 const material = new THREE.MeshStandardMaterial({
   color: 0x88aaff,
+  emissive: 0x223366,
+  emissiveIntensity: 1,
   roughness: 0.3,
   metalness: 0.1,
 })
