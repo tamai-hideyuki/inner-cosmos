@@ -31,3 +31,10 @@ const material = new THREE.MeshStandardMaterial({
 })
 const sphere = new THREE.Mesh(geometry, material)
 scene.add(sphere)
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+directionalLight.position.set(3, 3, 5);
+scene.add(directionalLight);
